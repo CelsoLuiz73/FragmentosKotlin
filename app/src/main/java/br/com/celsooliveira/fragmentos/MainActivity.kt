@@ -1,35 +1,45 @@
 package br.com.celsooliveira.fragmentos
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    private lateinit var buttonHome: Button
-    private lateinit var buttonConsoles: Button
-    private lateinit var buttonGames: Button
+class MainActivity : AppCompatActivity(),View.OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener, NavigationBarView.OnItemSelectedListener {
+
+//    private lateinit var buttonHome: Button
+//    private lateinit var buttonConsoles: Button
+//    private lateinit var buttonGames: Button
 
     private lateinit var homeFragment: HomeFragment
     private lateinit var gameFragment: GameFragment
     private lateinit var consoleFragment: ConsoleFragment
 
+    private lateinit var bottomNavigationView: BottomNavigationView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        buttonHome = findViewById(R.id.btn_home)
-        buttonHome.setOnClickListener(this)
-        buttonGames = findViewById(R.id.btn_games)
-        buttonGames.setOnClickListener(this)
-        buttonConsoles = findViewById(R.id.btn_consoles)
-        buttonConsoles.setOnClickListener(this)
+//        buttonHome = findViewById(R.id.btn_home)
+//        buttonHome.setOnClickListener(this)
+//        buttonGames = findViewById(R.id.btn_games)
+//        buttonGames.setOnClickListener(this)
+//        buttonConsoles = findViewById(R.id.btn_consoles)
+//        buttonConsoles.setOnClickListener(this)
 
         homeFragment = HomeFragment()
         consoleFragment = ConsoleFragment()
         gameFragment = GameFragment()
+
+        bottomNavigationView = findViewById(R.id.botton_navigation)
+        bottomNavigationView.setOnNavigationItemSelectedListener(this)
 
         setFragment(homeFragment)
 
@@ -49,16 +59,31 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     //qualquer view que colocamos dentro de uma activity, é passível de clique.
 
     override fun onClick(v: View) {
-        when(v.id){
-            R.id.btn_home -> {
+//        when(v.id){
+//            R.id.btn_home -> {
+//                setFragment(homeFragment)
+//            }
+//            R.id.btn_games -> {
+//                setFragment(gameFragment)
+//            }
+//            R.id.btn_consoles -> {
+//                setFragment(consoleFragment)
+//            }
+//        }
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_home -> {
                 setFragment(homeFragment)
             }
-            R.id.btn_games -> {
+            R.id.menu_game -> {
                 setFragment(gameFragment)
             }
-            R.id.btn_consoles -> {
+            R.id.menu_console -> {
                 setFragment(consoleFragment)
             }
         }
+        return true
     }
 }
